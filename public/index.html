@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tracker</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <h1>For Testing On Browser</h1>
+    <div id="data"></div>
+
+    <script>
+        const socket = io("http://localhost:8000");
+        const subscriptionMessage = JSON.stringify({
+            method: "RSUBSCRIPTION",
+            params: ["main-site@crypto_price_5s@{}@normal", "1,1027,825,5426,1839,52,74,3408,2010,5805,1958,11419,512,5994,6636,1975,1831,20947,24478,6535,3957,2,7083,21794,8916,4642,4943"],
+        });
+        socket.emit("subscribe", subscriptionMessage);
+        socket.on("crypto_update", (data) => {
+            console.log("Received data from server:", data);
+            document.getElementById("data").innerText = JSON.stringify(data, null, 2);
+        });
+    </script>
+</body>
+
+</html>
