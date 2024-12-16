@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Tracker</title>
-    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <!-- <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script> -->
 </head>
 
 <body>
@@ -22,6 +24,14 @@
         socket.on("crypto_update", (data) => {
             console.log("Received data from server:", data);
             document.getElementById("data").innerText = JSON.stringify(data, null, 2);
+        });
+        console.log(socket.id); // undefined
+
+        socket.on("connect", () => {
+            console.log(socket.id); // "G5p5..."
+        });
+        socket.on("connect", () => {
+            console.log(socket.connected); // true
         });
     </script>
 </body>
